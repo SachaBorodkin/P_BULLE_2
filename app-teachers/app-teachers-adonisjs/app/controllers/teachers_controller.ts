@@ -17,7 +17,7 @@ export default class TeachersController {
   async show({ params, view }: HttpContext) {
     const teacher = await Teacher.query().where('id', params.id).preload('section').firstOrFail()
 
-    return view.render('pages/teachers/details', { teacher })
+    return view.render('pages/teachers/show', { teacher })
   }
 
   /**
