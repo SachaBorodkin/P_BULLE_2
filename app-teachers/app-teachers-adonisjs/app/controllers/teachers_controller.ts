@@ -55,30 +55,45 @@ ${teacher.firstname} a été ajouté avec succès !`
    * Afficher le formulaire d'édition
    */
   async edit({ params, view }: HttpContext) {
+    // Sélectionner l'enseignant dont on veut mettre à jour des informations
     const teacher = await Teacher.findOrFail(params.id)
-    return view.render('pages/teachers/edit', { teacher })
+    // Récupération des sections triées par le nom
+    const sections = await Section.query().orderBy('name', 'asc')
+    // Afficher la vue
+    return view.render('pages/teachers/edit.edge', {
+      title: 'Modifier un enseignant',
+      teacher,
+      sections,
+    })
   }
-
+  async update({ params, request, session, response }: HttpContext) {
+    // Validation des données saisies par l'utilisateur
+    const { gender, firstname, lastname, nickname, origine, sectionId } =
+      await request.validateUsing(teacherValidator)
+    // Sélectionner l'enseignant dont on veut mettre à jour des informations
+    const teacher = await Teacher.findOrFail(params.id)
+    // Met à jour les infos de l'enseignant
+    teacher.merge({
+      gender,
+      firstname,
+      lastname,
+      nickname,
+      origine,
+      sectionId,
+    })
+    const teacherUpdated = await teacher.save()
+    // Afficher un message à l'utilisateur
+    session.flash(
+      'success',
+      `L'enseignant ${teacherUpdated.lastname} ${teacherUpdated.firstname} a été
+mis à jour avec succès !`
+    )
+    // Redirige l'utilisateur sur la home
+    return response.redirect().toRoute('home')
+  }
   /**
    * Traiter la modification de l'enseignant
    */
-  async update({ params, request, response, session }: HttpContext) {
-    // 1. Trouver l'enseignant ou renvoyer une erreur 404
-    const teacher = await Teacher.findOrFail(params.id)
-
-    // 2. Récupérer les données du formulaire
-    // Note: Il est recommandé d'utiliser un Validator ici pour plus de sécurité
-    const data = request.only(['firstname', 'lastname', 'sectionId'])
-
-    // 3. Mettre à jour et sauvegarder
-    teacher.merge(data)
-    await teacher.save()
-
-    // 4. Rediriger avec un message de succès
-    session.flash('notification', 'Enseignant mis à jour avec succès')
-    return response.redirect().toRoute('teachers.show', { id: teacher.id })
-  }
-
   /**
    * Supprimer un enseignant
    */
