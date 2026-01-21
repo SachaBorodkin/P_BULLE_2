@@ -19,3 +19,4 @@ router.get('/teacher/:id/edit', [TeachersController, 'edit']).as('teacher.edit')
 // Route permettant la modification de l'enseignant
 router.put('/teacher/:id/update', [TeachersController, 'update']).as('teacher.update')
 router.post('/login', [AuthController, 'login']).as('auth.login')
+router.post('/logout', [AuthController, 'logout']).as('auth.logout')

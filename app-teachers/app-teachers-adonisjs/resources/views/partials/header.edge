@@ -9,10 +9,9 @@
     <div class="login-container">
       @if(auth.isAuthenticated)
         {{ auth.user.username }} ({{ auth.user.isAdmin ? 'admin' : 'user' }})
-        <form action="#" method="post">
+        <form action="{{ route('auth.logout') }}" method="post">
           {{ csrfField() }}
-<button type="submit" class="btn btn-logout">Se
-déconnecter</button>
+<button type="submit" class="btn btn-logout">Se déconnecter</button>
         </form>
       @else
         <form action="{{ route('auth.login') }}" method="post">

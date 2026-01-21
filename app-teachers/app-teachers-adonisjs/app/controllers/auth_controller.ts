@@ -24,4 +24,12 @@ succès`
     // Redirige vers la route ayant pour nom 'home'
     return response.redirect().toRoute('home')
   }
+  async logout({ auth, session, response }: HttpContext) {
+    // Utilise le Guard 'web' pour déconnecter l'utilisateur -> Voir le fichierconfig/auth.ts
+    await auth.use('web').logout()
+    // Affiche un message à l'utilisateur
+    session.flash('success', "L'utilisateur s'est déconnecté avec succès")
+    // Redirige la réponse sur la route 'home'
+    return response.redirect().toRoute('home')
+  }
 }
