@@ -26,25 +26,28 @@
             {{ teacher.nickname }}
           </td>
           <td class="containerOptions">
-            <a href="{{ route('teacher.edit', {id: teacher.id}) }}">
-              <img height="20em" src="/public/edit.png" alt="edit" />
-            </a>
-            {{-- Ajout d'un formulaire pour la suppression d'un enseignant --}}
-            <form
-              action="{{ route('teacher.destroy', { id: teacher.id }) }}?
-_method=DELETE"
-              method="POST"
-              style="display: inline"
-            >
-              {{ csrfField() }}
-<button type="submit" style="background: none; border: none;
-padding: 0; cursor: pointer;">
-                <img height="20em" src="/public/delete.png" alt="delete" />
-              </button>
-            </form>
-            <a href="{{ route('teacher.show', {id: teacher.id}) }}">
-              <img height="20em" src="/public/detail.png" alt="detail" />
-            </a>
+            @if(auth.isAuthenticated && auth.user.isAdmin)
+              <a href="{{ route('teacher.edit', {id: teacher.id}) }}">
+                <img height="20em" src="/img/edit.png" alt="edit" />
+              </a>
+              {{-- Ajout d'un formulaire pour la suppression d'un enseignant --}}
+              <form
+                action="{{ route('teacher.destroy', { id: teacher.id }) }}?_method=DELETE"
+                method="POST"
+                style="display: inline"
+              >
+                {{ csrfField() }}
+<button type="submit" style="background: none; border: none; padding: 0;
+cursor: pointer;">
+                  <img height="20em" src="/img/delete.png" alt="delete" />
+                </button>
+              </form>
+            @end
+            @if(auth.isAuthenticated)
+              <a href="{{ route('teacher.show', {id: teacher.id}) }}">
+                <img height="20em" src="/img/detail.png" alt="detail" />
+              </a>
+            @end
           </td>
         </tr>
       @end

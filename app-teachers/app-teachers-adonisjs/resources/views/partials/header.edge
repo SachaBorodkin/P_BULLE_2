@@ -47,6 +47,9 @@
   </div>
   <nav>
     <a href="{{ route('home') }}">Accueil</a>&nbsp;
-<a href="{{ route('teacher.create') }}">Ajouter un enseignant</a>
+    @if(auth.isAuthenticated &&
+    auth.user.isAdmin)
+      <a href="{{ route('teacher.create') }}">Ajouter un enseignant</a>
+    @end
   </nav>
 </header>

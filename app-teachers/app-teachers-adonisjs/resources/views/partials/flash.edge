@@ -13,3 +13,10 @@
     {{ $message }}
   </div>
 @end
+@error('E_UNAUTHORIZED_ACCESS')
+  <div class="alert alert-danger">
+    @if($message === "Unauthorized access")
+      Vous devez être authentifié pour accéder à cette page
+    @end
+  </div>
+@end
