@@ -1,3 +1,4 @@
+@eval(await auth.check())
 <header>
   <div class="container-header">
     <div class="titre-header">
@@ -6,15 +7,43 @@
       </h1>
     </div>
     <div class="login-container">
-      <form action="#" method="post">
-        <label for="user"></label>
-        <input type="text" name="user" id="user" placeholder="Login" />
-        <label for="password"></label>
-        <input type="password" name="password" id="password" placeholder="Mot de passe" />
-        <button type="submit" class="btn btn-login">
-          Se connecter
-</button>
-      </form>
+      @if(auth.isAuthenticated)
+        {{ auth.user.username }} ({{ auth.user.isAdmin ? 'admin' : 'user' }})
+        <form action="#" method="post">
+          {{ csrfField() }}
+<button type="submit" class="btn btn-logout">Se
+déconnecter</button>
+        </form>
+      @else
+        <form action="{{ route('auth.login') }}" method="post">
+          {{ csrfField() }}
+<input
+            type="text"
+            id="username"
+            name="username"
+            value="{{ old('username') || '' }}"
+            placeholder="Nom d'utilisateur"
+          />
+          @inputError('username')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value="{{ old('password') || '' }}"
+            placeholder="Mot de passe"
+          />
+          @inputError('password')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+          <button type="submit" class="btn btn-login">Se connecter</button>
+        </form>
+      @endif
     </div>
   </div>
   <nav>
