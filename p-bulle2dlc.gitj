@@ -4,5 +4,32 @@
   "branch": "main",
   "me": "SachaBorodkin",
   "journalStartDate": null,
-  "exceptions": []
+  "exceptions": [
+    {
+      "id": "ba8c5d40-ba0e-4ae2-b4a2-31d58cd46882",
+      "type": "commitpatch",
+      "sha": "c4e347609359ccdc1b99d2496ad3647b97b31cba",
+      "url": "https://github.com/SachaBorodkin/P_BULLE_2/commit/c4e347609359ccdc1b99d2496ad3647b97b31cba",
+      "name": "Step 6",
+      "description": "",
+      "date": "2026-01-14T16:29",
+      "duration": 30,
+      "status": "Done",
+      "author": "SachaBorodkin",
+      "patch": true
+    },
+    {
+      "id": "33404112-5cd3-4e42-828e-d13ee1851d03",
+      "type": "commitpatch",
+      "sha": "84c49b3a663a72e134f4604ed6f1efd09cfe8ee0",
+      "url": "https://github.com/SachaBorodkin/P_BULLE_2/commit/84c49b3a663a72e134f4604ed6f1efd09cfe8ee0",
+      "name": "Step 0-3",
+      "description": "",
+      "date": "2026-01-14T13:45:00.000Z",
+      "duration": 20,
+      "status": "Done",
+      "author": "SachaBorodkin",
+      "patch": true
+    }
+  ]
 }
