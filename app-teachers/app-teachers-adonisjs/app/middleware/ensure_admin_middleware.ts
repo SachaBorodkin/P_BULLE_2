@@ -8,7 +8,7 @@ export default class EnsureAdminMiddleware {
       const isAuthenticated = await auth.check()
       if (!isAuthenticated || !auth.user?.isAdmin) {
         // Affiche un message d'erreur à l'utilisateur
-        session.flash('error', 'Vous devez avoir les droits admin pour accéder àcette page')
+        session.flash('error', 'Vous devez avoir les droits admin pour accéder à cette page')
         // Redirige l'utilisateur vers la page d'accueil
         return response.redirect().toRoute('home')
       }

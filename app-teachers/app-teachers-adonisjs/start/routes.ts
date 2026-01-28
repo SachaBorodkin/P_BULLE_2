@@ -8,6 +8,7 @@
 */
 import AuthController from '#controllers/auth_controller'
 import TeachersController from '#controllers/teachers_controller'
+import SectionsController from '#controllers/sections_controller'
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 // La route de la homepage est accessible aussi bien à un utilisateur authentifié que non authentifié
@@ -17,7 +18,15 @@ router
   .get('/teacher/:id/show', [TeachersController, 'show'])
   .as('teacher.show')
   .use(middleware.auth())
+//route permettant de voir les détails d'une section
+router.get('/section/:id/show', [SectionsController, 'show']).as('section.show')
+//.use(middleware.auth())
 // Toutes les routes de ce groupe sont soumises à l'authentification
+router.group(() => {
+  router.get('/section/add', [SectionsController, 'create']).as('section.create')
+  router.post('/section/add', [SectionsController, 'store']).as('section.store')
+  router.delete('/section/:id/destroy', [SectionsController, 'destroy']).as('.destroy')
+})
 router
   .group(() => {
     // Route permettant d'afficher le formulaire permettant l'ajout d'un enseignant
