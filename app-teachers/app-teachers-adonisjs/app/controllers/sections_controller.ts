@@ -1,4 +1,3 @@
-import Teacher from '#models/teacher'
 import Section from '#models/section'
 import type { HttpContext } from '@adonisjs/core/http'
 import { SectionValidator } from '#validators/section'
@@ -32,14 +31,17 @@ export default class Sections {
   async store({ request, session, response }: HttpContext) {
     // Validation des données saisies par l'utilisateur
     const { name } = await request.validateUsing(SectionValidator)
+
     // Création de la nouvele section
     const section = await Section.create({
       name,
     })
+
     // Afficher un message à l'utilisateur
     session.flash('success', `La section ${section.name} a été ajouté avec succès !`)
-    // Rediriger vers la homepage
-    return response.redirect().toRoute('sections.index')
+
+    // CORRECTION: Change 'sections.index' to 'section.index'
+    return response.redirect().toRoute('section.index')
   }
   /**
    * Supprimer une section
