@@ -14,7 +14,7 @@ export default class extends BaseSchema {
         .integer('user_id')
         .unsigned()
         .references('id')
-        .inTable('sections')
+        .inTable('decks')
         .onDelete('CASCADE')
         .onUpdate('CASCADE')
       table.timestamp('created_at')

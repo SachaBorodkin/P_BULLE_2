@@ -13,4 +13,9 @@ export default class DecksController {
 
     return view.render('pages/home', { decks })
   }
+  async show({ params, view }: HttpContext) {
+    const deck = await Deck.query().where('id', params.id)
+
+    return view.render('pages/decks/show', { deck })
+  }
 }
