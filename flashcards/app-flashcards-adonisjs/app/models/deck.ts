@@ -1,0 +1,21 @@
+import vine from '@vinejs/vine'
+import { DateTime } from 'luxon'
+import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import User from '#models/user'
+export default class Deck extends BaseModel {
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: String
+  @column()
+  declare description: String
+  @column()
+  declare user_Id: number // Colonne correspondant à la clé étrangère
+  @belongsTo(() => User)
+  declare user: BelongsTo<typeof User> // Relation vers le modèle Section
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
+}
