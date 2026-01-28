@@ -14,13 +14,14 @@
       </tr>
     </thead>
     <tbody>
-      @each ((section, index) in sectionss)
+
+      @each((section, index) in sections)
+        {{-- Changed from sectionss to sections --}}
         <tr>
           <td>
             {{ section.name }}
           </td>
           <td class="containerOptions">
-
             <form
               action="{{ route('section.destroy', { id: section.id }) }}?_method=DELETE"
               method="POST"

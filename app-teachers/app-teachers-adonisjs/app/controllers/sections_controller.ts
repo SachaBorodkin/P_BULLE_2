@@ -9,7 +9,7 @@ export default class Sections {
   async index({ view }: HttpContext) {
     const sections = await Section.query().orderBy('name', 'asc')
 
-    return view.render('pages/sections', { sections })
+    return view.render('pages/sections/sections', { sections })
   }
 
   /**
@@ -39,7 +39,7 @@ export default class Sections {
     // Afficher un message à l'utilisateur
     session.flash('success', `La section ${section.name} a été ajouté avec succès !`)
     // Rediriger vers la homepage
-    return response.redirect().toRoute('home')
+    return response.redirect().toRoute('sections.index')
   }
   /**
    * Supprimer une section
@@ -55,6 +55,6 @@ export default class Sections {
 succès !`
     )
     // Redirige l'utilisateur sur la home
-    return response.redirect().toRoute('home')
+    return response.redirect().toRoute('section.index')
   }
 }
