@@ -1,55 +1,35 @@
 @component('components/layout', { title: 'Accueil' })
-  <h1>
+  <main>
+    <h1>
 
-  </h1>
-  <thead>
-    <tr>
-      <th>
-        Titre
-      </th>
-      <th>
-        Description
-      </th>
-      <th>
-        Cartes
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    @each ((teacher, index) in teachers)
+    </h1>
+    <thead>
+      <tr>
+        <th>
+          Titre
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Cartes
+        </th>
+      </tr>
+    </thead>
+    <tbody>
       <tr>
         <td>
-          {{ teacher.lastname }} {{ teacher.firstname }}
+          test
         </td>
         <td>
-          {{ teacher.nickname }}
+          test
         </td>
-        <td class="containerOptions">
-          @if(auth.isAuthenticated && auth.user.isAdmin)
-            <a href="{{ route('teacher.edit', {id: teacher.id}) }}">
-              <img height="20em" src="/img/edit.png" alt="edit" />
-            </a>
-            {{-- Ajout d'un formulaire pour la suppression d'un enseignant --}}
-            <form
-              action="{{ route('teacher.destroy', { id: teacher.id }) }}?_method=DELETE"
-              method="POST"
-              style="display: inline"
-            >
-              {{ csrfField() }}
-<button type="submit" style="background: none; border: none; padding: 0;
-cursor: pointer;">
-                <img height="20em" src="/img/delete.png" alt="delete" />
-              </button>
-            </form>
-          @end
-          @if(auth.isAuthenticated)
-            <a href="{{ route('teacher.show', {id: teacher.id}) }}">
-              <img height="20em" src="/img/detail.png" alt="detail" />
-            </a>
-          @end
+        <td>
+          test
         </td>
       </tr>
-    @end
-  </tbody>
-</table>
+
+    </tbody>
+  </table>
+</main>
 @endcomponent
