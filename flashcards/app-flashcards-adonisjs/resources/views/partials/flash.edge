@@ -1,2 +1,11 @@
-@component('components/layout', { title: 'Accueil' })
-@endcomponent
+@if(flashMessages.has('notification'))
+  <div class="alert alert-success">
+    {{ flashMessages.get('notification') }}
+  </div>
+@endif
+
+@if(flashMessages.has('error'))
+  <div class="alert alert-danger">
+    {{ flashMessages.get('error') }}
+  </div>
+@endif

@@ -14,9 +14,14 @@ header {
   background-position: center;
   background-repeat: no-repeat;
   height: 100px;
+  color: White;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  padding: 20px;
+  text-align: center;
 }
 main {
-  height: 89vh;
+  height: 85vh;
   background-image: url('../assets/blackjack.jpg');
   background-size: cover;
   background-position: center;
