@@ -14,7 +14,8 @@ export default class DecksController {
     return view.render('pages/home', { decks })
   }
   async show({ params, view }: HttpContext) {
-    const deck = await Deck.query().where('id', params.id)
+    // Use firstOrFail to get a single object or throw a 404 if not found
+    const deck = await Deck.query().where('id', params.id).firstOrFail()
 
     return view.render('pages/decks/show', { deck })
   }
