@@ -21,7 +21,7 @@
           value="{{ old('name') || '' }}"
           placeholder="Nom d'utilisateur"
         />
-        @inputError('username')
+        @inputError('name')
           <p class="text-danger">
             {{ $messages.join(', ') }}
           </p>

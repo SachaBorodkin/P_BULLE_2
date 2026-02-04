@@ -13,7 +13,13 @@ import AuthController from '#controllers/auth_controller'
 
 router.get('/', [DecksController, 'index']).as('home')
 router.post('/login', [AuthController, 'login']).as('auth.login').use(middleware.guest())
+// Add this line to start/routes.ts
+router
+  .get('/login', ({ view }) => view.render('pages/auth/login'))
+  .as('auth.showLogin')
+  .use(middleware.guest())
 router.post('/logout', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
 // Add this to handle the list of decks and specific deck views
 router.get('/decks', [DecksController, 'index']).as('decks.index')
 router.get('/decks/:id', [DecksController, 'show']).as('decks.show')
+router.get('/login', ({ view }) => view.render('pages/auth/login')).as('auth.showLogin')
