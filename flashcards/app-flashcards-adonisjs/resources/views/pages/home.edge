@@ -1,35 +1,30 @@
 @component('components/layout', { title: 'Accueil' })
-  <main>
-    <h1>
-
-    </h1>
-    <thead>
-      <tr>
-        <th>
-          Titre
-        </th>
-        <th>
-          Description
-        </th>
-        <th>
-          Cartes
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          test
-        </td>
-        <td>
-          test
-        </td>
-        <td>
-          test
-        </td>
-      </tr>
-
-    </tbody>
-  </table>
+ <main>
+  <div class="table-container">
+    <h1>Mes Decks</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Description</th>
+          <th>Cartes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @each((deck, index) in decks)
+          <tr>
+            <td>{{ deck.name }}</td>
+            <td>{{ deck.description }}</td>
+          <td>
+      <strong>{{ deck.$extras.cards_count }}</strong> cartes
+    </td>
+    <td class="actions">
+    </td>
+          </tr>
+        @end
+      </tbody>
+    </table>
+  </div>
 </main>
 @endcomponent

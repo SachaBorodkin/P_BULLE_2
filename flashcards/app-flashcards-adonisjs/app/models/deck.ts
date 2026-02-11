@@ -1,21 +1,31 @@
-import vine from '@vinejs/vine'
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import User from '#models/user'
+import Card from '#models/card' // Import your Card model
+
 export default class Deck extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
+
   @column()
-  declare name: String
+  declare name: string
+
   @column()
-  declare description: String
+  declare description: string
+
   @column()
   declare userId: number
+
   @belongsTo(() => User)
   declare user: BelongsTo<typeof User>
+
+  @hasMany(() => Card)
+  declare cards: HasMany<typeof Card>
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
+
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
 }

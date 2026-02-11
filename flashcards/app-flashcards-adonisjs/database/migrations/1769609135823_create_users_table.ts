@@ -8,7 +8,6 @@ export default class extends BaseSchema {
       table.increments('id').notNullable()
       table.string('name').nullable()
       table.string('password').notNullable()
-      // Add default values here
       table.timestamp('created_at').notNullable().defaultTo(this.now())
       table.timestamp('updated_at').nullable().defaultTo(this.now())
     })

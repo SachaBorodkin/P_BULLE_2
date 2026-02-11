@@ -1,29 +1,172 @@
+:root {
+  --primary-gold: #ffd700;
+  --glass-bg: rgba(0, 0, 0, 0.6);
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --transition: all 0.3s ease;
+}
+
 * {
   margin: 0;
   padding: 0;
-}
-
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-header {
-  background-image: url('../assets/gambling.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100px;
-  color: White;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  display: flex;
-  padding: 20px;
-  text-align: center;
+  box-sizing: border-box;
 }
 main {
   height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
   background-image: url('../assets/blackjack.jpg');
+}
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+}
+.table-container {
+  width: 90%;
+  max-width: 1000px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.table-container h1 {
+  color: var(--primary-gold);
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: white;
+}
+
+thead th {
+  text-align: left;
+  padding: 15px;
+  border-bottom: 2px solid var(--primary-gold);
+  color: var(--primary-gold);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+tbody td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+}
+
+tbody tr:hover {
+  background: rgba(255, 215, 0, 0.05);
+}
+
+tbody td:last-child {
+  font-weight: bold;
+  color: var(--primary-gold);
+}
+header {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/gambling.jpg');
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 5%;
+  min-height: 120px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+header img {
+  height: 60px;
+  width: auto;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--primary-gold);
+}
+
+.login-container {
+  background: var(--glass-bg);
+  padding: 15px 25px;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.login-container form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+input {
+  background: var(--input-bg);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: white;
+  outline: none;
+  transition: var(--transition);
+}
+
+input:focus {
+  border-color: var(--primary-gold);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn {
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-login {
+  background-color: var(--primary-gold);
+  color: #000;
+}
+
+.btn-login:hover {
+  background-color: #e6c200;
+  transform: translateY(-2px);
+}
+
+.btn-logout {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+}
+
+.btn-logout:hover {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.text-danger {
+  color: #ff6b6b;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  position: absolute;
 }
