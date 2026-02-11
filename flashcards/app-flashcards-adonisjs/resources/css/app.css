@@ -26,36 +26,4 @@ main {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-/* Styling for the table in flashcards application */
-table {
-  width: 90%;
-  margin: 20px auto;
-  border-collapse: collapse;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white to see background */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  overflow: hidden; /* Ensures border-radius works with child elements */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-thead {
-  background-color: #333;
-  color: white;
-  text-align: left;
-}
-
-th,
-td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-/* Ensure headings in main are styled */
-main h1 {
-  color: white;
-  text-align: center;
-  padding: 20px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }

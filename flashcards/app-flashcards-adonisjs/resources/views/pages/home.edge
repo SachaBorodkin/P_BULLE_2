@@ -1,36 +1,35 @@
 @component('components/layout', { title: 'Accueil' })
   <main>
     <h1>
-      Liste des Decks
+
     </h1>
-    <table>
-      <thead>
-        <tr>
-          <th>
-            Titre
-          </th>
-          <th>
-            Description
-          </th>
-          <th>
-            Cartes
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        @each(deck in decks)
-          <tr>
-            <td>
-              {{ deck.name }}
-            </td>
-            <td>
-              {{ deck.description || 'N/A' }}
-            </td>
-            <td>
-            </td>
-          </tr>
-        @endeach
-      </tbody>
-    </table>
-  </main>
+    <thead>
+      <tr>
+        <th>
+          Titre
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Cartes
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          test
+        </td>
+        <td>
+          test
+        </td>
+        <td>
+          test
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</main>
 @endcomponent
