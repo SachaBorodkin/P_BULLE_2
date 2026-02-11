@@ -1,41 +1,40 @@
-@component('components/layout', { title: 'Create New Deck' })
-  <main class="main-content">
-    <div class="glass-card" style="max-width: 500px;">
-      <div class="card-header">
+@component('components/layout', { title: 'Create Deck' })
+
+  @slot('main')
+    <main class="main-content">
+      <div class="glass-card" style="max-width: 500px;">
         <h3>
           Create New Deck
         </h3>
-      </div>
-      <div class="card-body">
+
         <form action="{{ route('deck.store') }}" method="POST">
           {{ csrfField() }}
           <div class="field">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="{{ old('name') || '' }}" placeholder="Enter deck name" />
+            <label>Name</label>
+            <input type="text" name="name" value="{{ old('name') }}" />
+
             @inputError('name')
               <p class="text-danger">
                 {{ $messages.join(', ') }}
               </p>
             @end
           </div>
+
           <div class="field">
-            <label for="description">Description</label>
-            <input
-              type="text"
-              id="description"
-              name="description"
-              value="{{ old('description') || '' }}"
-              placeholder="Enter description"
-            />
+            <label>Description</label>
+            <input type="text" name="description" value="{{ old('description') }}" />
+
             @inputError('description')
               <p class="text-danger">
                 {{ $messages.join(', ') }}
               </p>
             @end
           </div>
-          <button type="submit" class="btn-primary">Enregistrer</button>
+
+          <button type="submit">Save</button>
         </form>
       </div>
-    </div>
-  </main>
+    </main>
+  @endslot
+  
 @end

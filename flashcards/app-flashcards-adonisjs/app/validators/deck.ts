@@ -1,11 +1,8 @@
 import vine from '@vinejs/vine'
 
-const decksValidator = vine.compile(
+export const decksValidator = vine.compile(
   vine.object({
-    name: vine.string().trim().minLength(2),
-    description: vine.string().trim().minLength(2),
-    userId: vine.number().positive(),
+    name: vine.string().minLength(3),
+    description: vine.string().optional(),
   })
 )
-
-export { decksValidator }

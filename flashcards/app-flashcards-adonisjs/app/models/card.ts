@@ -14,15 +14,11 @@ export default class Card extends BaseModel {
   declare answer: string
 
   @column()
-  declare deckId: number // Matches deck_id in migration
+  declare deckId: number
 
-  // The relationship back to the Deck
   @belongsTo(() => Deck)
   declare deck: BelongsTo<typeof Deck>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
-
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updatedAt: DateTime
 }

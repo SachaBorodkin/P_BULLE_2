@@ -34,24 +34,17 @@
                 <strong>{{ deck.$extras.cards_count }}</strong>cartes
               </td>
               <td class="actions">
-                <a href="{{ route('deck.edit', {id: deck.id}) }}">
-                  <img height="20em" src="../../assets/edit.png" alt="edit" />
-                </a>
-                <form
-                  action="{{ route('deck.destroy', { id: deck.id }) }}?_method=DELETE"
-                  method="POST"
-                  style="display: inline"
-                >
+
+                <a href="{{ route('deck.edit', { id: deck.id }) }}">Edit</a>
+
+                <form action="{{ route('deck.destroy', { id: deck.id }) }}" method="POST">
                   {{ csrfField() }}
-<button type="submit" style="background: none; border: none; padding: 0;
-cursor: pointer;">
-                    <img height="20em" src="../../assets/delete.png" alt="delete" />
-                  </button>
+    <input type="hidden" name="_method" value="DELETE" />
+                  <button>Delete</button>
                 </form>
-                <a href="{{ route('deck.show', {id: deck.id}) }}">
-                  <img height="20em" src="../../assets/detail.png" alt="detail" />
-                </a>
+
               </td>
+
             </tr>
           @end
         </tbody>
