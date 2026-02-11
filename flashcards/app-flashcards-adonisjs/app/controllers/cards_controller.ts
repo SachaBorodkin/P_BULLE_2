@@ -1,20 +1,68 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import Card from '#models/card'
 import Deck from '#models/deck'
+import Card from '#models/card'
+import { createCardValidator } from '#validators/card'
 
 export default class CardsController {
-  async store({ params, request, response, session }: HttpContext) {
-    const deck = await Deck.findOrFail(params.id)
+  /**
+   * Etape 1 : Afficher le formulaire
+   * On récupère l'ID du deck via l'URL pour savoir où ajouter la carte
+   */
+  async create({ params, view }: HttpContext) {
+    // On cherche le deck pour pouvoir afficher son nom dans la vue
+    const deck = await Deck.findOrFail(params.deckId)
 
-    const { question, answer } = request.only(['question', 'answer'])
+    return view.render('pages/cards/create', { deck })
+  }
 
-    await Card.create({
-      question,
-      answer,
-      deckId: deck.id,
-    })
+  /**
+   * Etape 2 : Enregistrer la carte
+   */
+  async store({ request, response, session }: HttpContext) {
+    // 1. Validation des données via VineJS
+    const payload = await request.validateUsing(createCardValidator)
 
-    session.flash('success', 'Carte ajoutée au deck !')
-    return response.redirect().back()
+    // 2. Création de la carte
+    await Card.create(payload)
+
+    // 3. Message de succès et redirection vers le Deck
+    session.flash('success', 'La carte a été ajoutée avec succès !')
+    return response.redirect().toRoute('decks.show', { id: payload.deckId })
+  }
+  /* Supprimer la carte  */
+  async destroy({ params, response, session }: HttpContext) {
+    const card = await Card.findOrFail(params.id)
+    const deckId = card.deckId
+    await card.delete()
+
+    session.flash('success', 'Carte supprimée !')
+    return response.redirect().toRoute('decks.show', { id: deckId })
+  }
+  /**
+   * Afficher le formulaire d'édition avec les données existantes
+   */
+  async edit({ params, view }: HttpContext) {
+    // On récupère la carte pour pré-remplir le formulaire
+    const card = await Card.findOrFail(params.id)
+
+    return view.render('pages/cards/edit', { card })
+  }
+  /**
+   * Traiter la mise à jour
+   */
+  async update({ params, request, response, session }: HttpContext) {
+    // 1. On récupère la carte cible
+    const card = await Card.findOrFail(params.id)
+
+    // 2. On valide les nouvelles données
+    const payload = await request.validateUsing(createCardValidator)
+
+    // 3. On fusionne les nouvelles données et on sauvegarde
+    card.merge(payload)
+    await card.save()
+
+    // 4. Confirmation et redirection
+    session.flash('success', 'Carte modifiée avec succès !')
+    return response.redirect().toRoute('decks.show', { id: card.deckId })
   }
 }

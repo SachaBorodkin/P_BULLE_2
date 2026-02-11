@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo, hasMany } from '@adonisjs/lucid/orm'
 import type { BelongsTo, HasMany } from '@adonisjs/lucid/types/relations'
 import User from '#models/user'
-import Card from '#models/card' // Import your Card model
+import Card from '#models/card'
 
 export default class Deck extends BaseModel {
   @column({ isPrimary: true })
@@ -14,7 +14,7 @@ export default class Deck extends BaseModel {
   @column()
   declare description: string
 
-  @column()
+  @column({ columnName: 'user_id' })
   declare userId: number
 
   @belongsTo(() => User)

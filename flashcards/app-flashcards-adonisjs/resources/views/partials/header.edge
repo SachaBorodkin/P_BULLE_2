@@ -5,45 +5,10 @@
     <h1>
       Flashcards
     </h1>
-    <a href="/">Accueil</a>
+    <a href="{{ route('home') }}">Accueil</a>
   </div>
   <div class="login-container">
-    <a href="{{ route('deck.create') }}">Ajouter un deck</a>
-    @if(auth.isAuthenticated)
-      {{ auth.user.username }} ({{ auth.user.isAdmin ? 'admin' : 'user' }})
-      <form action="{{ route('auth.logout') }}" method="post">
-        {{ csrfField() }}
-<button type="submit" class="btn btn-logout">Se déconnecter</button>
-      </form>
-    @else
-      <form action="{{ route('auth.login') }}" method="post">
-        {{ csrfField() }}
-<input
-          type="text"
-          id="name"
-          name="name"
-          value="{{ old('name') || '' }}"
-          placeholder="Nom d'utilisateur"
-        />
-        @inputError('name')
-          <p class="text-danger">
-            {{ $messages.join(', ') }}
-          </p>
-        @end
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value="{{ old('password') || '' }}"
-          placeholder="Mot de passe"
-        />
-        @inputError('password')
-          <p class="text-danger">
-            {{ $messages.join(', ') }}
-          </p>
-        @end
-        <button type="submit" class="btn btn-login">Se connecter</button>
-      </form>
-    @endif
+    <a href="{{ route('decks.create') }}">Ajouter un deck</a>
+
   </div>
 </header>

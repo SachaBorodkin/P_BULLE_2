@@ -7,7 +7,7 @@
           Edit: {{ deck.name }}
         </h3>
 
-        <form action="{{ route('deck.update', { id: deck.id }) }}" method="POST">
+        <form action="{{ route('decks.update', { id: deck.id }) }}" method="POST">
           {{ csrfField() }}
   <input type="hidden" name="_method" value="PUT" />
 

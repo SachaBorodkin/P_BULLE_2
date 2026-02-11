@@ -1,27 +1,18 @@
 import router from '@adonisjs/core/services/router'
 import DecksController from '#controllers/decks_controller'
 import CardsController from '#controllers/cards_controller'
-import AuthController from '#controllers/auth_controller'
-import { middleware } from './kernel.js'
 
 router.get('/', [DecksController, 'index']).as('home')
+router.get('/deck/:id', [DecksController, 'show']).as('decks.show')
+router.get('/decks/create', [DecksController, 'create']).as('decks.create')
+router.post('/decks', [DecksController, 'store']).as('decks.store')
+router.delete('/decks/:id/', [DecksController, 'destroy']).as('decks.destroy')
+router.get('/decks/:id/edit', [DecksController, 'edit']).as('decks.edit')
+router.put('/decks/:id', [DecksController, 'update']).as('decks.update')
 
-router.post('/login', [AuthController, 'login']).as('auth.login')
-router.post('/logout', [AuthController, 'logout']).as('auth.logout')
+router.get('/decks/:deckId/cards-add', [CardsController, 'create']).as('cards.create')
 
-router.get('/decks', [DecksController, 'index']).as('deck.index')
-
-router
-  .group(() => {
-    router.get('/deck/add', [DecksController, 'create']).as('deck.create')
-    router.post('/deck/add', [DecksController, 'store']).as('deck.store')
-
-    router.get('/deck/:id/edit', [DecksController, 'edit']).as('deck.edit')
-    router.put('/deck/:id/update', [DecksController, 'update']).as('deck.update')
-    router.delete('/deck/:id/destroy', [DecksController, 'destroy']).as('deck.destroy')
-
-    router.post('/deck/:id/cards', [CardsController, 'store']).as('cards.store')
-  })
-  .use(middleware.auth())
-
-router.get('/deck/:id', [DecksController, 'show']).as('deck.show')
+router.post('/cards', [CardsController, 'store']).as('cards.store')
+router.delete('/cards/:id', [CardsController, 'destroy']).as('cards.destroy')
+router.get('/cards/:id/edit', [CardsController, 'edit']).as('cards.edit')
+router.put('/cards/:id', [CardsController, 'update']).as('cards.update')

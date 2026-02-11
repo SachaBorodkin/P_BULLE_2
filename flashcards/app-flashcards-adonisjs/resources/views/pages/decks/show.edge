@@ -2,45 +2,46 @@
 
   @slot('main')
     <main>
-      <h1>
-        {{ deck.name }}
-      </h1>
-      <p>
-        {{ deck.description }}
-      </p>
-
-      <h3>
-        Cards
-      </h3>
-
-      @if(deck.cards.length)
-        <ul>
-          @each(card in deck.cards)
-            <li>
-              <strong>{{ card.question }}</strong>              <br />
-              {{ card.answer }}
-            </li>
-          @end
-        </ul>
-      @else
+      <div class="container">
+        <h1>
+          {{ deck.name }}
+        </h1>
         <p>
-          No cards yet.
+          {{ deck.description }}
         </p>
-      @end
-      
-      <h3>
-        Add card
-      </h3>
 
-      <form action="{{ route('cards.store', { id: deck.id }) }}" method="POST">
-        {{ csrfField() }}
+        <h3>
+          Cards
+        </h3>
+
+        @if(deck.cards.length)
+          <ul>
+            @each(card in deck.cards)
+              <li>
+                <strong>{{ card.question }}</strong>                <br />
+                {{ card.answer }}
+              </li>
+            @end
+          </ul>
+        @else
+          <p>
+            No cards yet.
+          </p>
+        @end
+        
+        <h3>
+          Add card
+        </h3>
+
+        <form action="{{ route('cards.store', { id: deck.id }) }}" method="POST">
+          {{ csrfField() }}
 
   <input name="question" />
-        <input name="answer" />
+          <input name="answer" />
 
-        <button>Add</button>
-      </form>
-
+          <button>Add</button>
+        </form>
+      </div>
     </main>
   @endslot
   

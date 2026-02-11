@@ -13,7 +13,8 @@ export default class Card extends BaseModel {
   @column()
   declare answer: string
 
-  @column()
+  // This maps your TypeScript property to the actual database column name
+  @column({ columnName: 'deck_id' })
   declare deckId: number
 
   @belongsTo(() => Deck)
@@ -21,4 +22,7 @@ export default class Card extends BaseModel {
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime
 }

@@ -25,7 +25,9 @@
           @each((deck, index) in decks)
             <tr>
               <td>
-                {{ deck.name }}
+                <a href="{{ route('decks.show', { id: deck.id }) }}">
+                  {{ deck.name }}
+  </a>
               </td>
               <td>
                 {{ deck.description }}
@@ -35,9 +37,9 @@
               </td>
               <td class="actions">
 
-                <a href="{{ route('deck.edit', { id: deck.id }) }}">Edit</a>
+                <a href="{{ route('decks.edit', { id: deck.id }) }}">Edit</a>
 
-                <form action="{{ route('deck.destroy', { id: deck.id }) }}" method="POST">
+                <form action="{{ route('decks.destroy', { id: deck.id }) }}" method="POST">
                   {{ csrfField() }}
     <input type="hidden" name="_method" value="DELETE" />
                   <button>Delete</button>

@@ -49,15 +49,14 @@ export default class DecksController {
     await deck.save()
 
     session.flash('success', `Le deck ${deck.name} a été mis à jour !`)
-    return response.redirect().toPath('/')
+    return response.redirect().toRoute('show')
   }
 
   async destroy({ params, response, session }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
-
     await deck.delete()
 
-    session.flash('success', `Le deck ${deck.name} a été supprimé avec succès !`)
-    return response.redirect().toPath('/')
+    session.flash('success', `Le deck ${deck.name} a été supprimé !`)
+    return response.redirect().toRoute('show')
   }
 }
