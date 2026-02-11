@@ -1,30 +1,61 @@
 @component('components/layout', { title: 'Accueil' })
- <main>
-  <div class="table-container">
-    <h1>Mes Decks</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Titre</th>
-          <th>Description</th>
-          <th>Cartes</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        @each((deck, index) in decks)
+  <main>
+    <div class="table-container">
+      <h1>
+        Mes Decks
+      </h1>
+      <table>
+        <thead>
           <tr>
-            <td>{{ deck.name }}</td>
-            <td>{{ deck.description }}</td>
-          <td>
-      <strong>{{ deck.$extras.cards_count }}</strong> cartes
-    </td>
-    <td class="actions">
-    </td>
+            <th>
+              Titre
+            </th>
+            <th>
+              Description
+            </th>
+            <th>
+              Cartes
+            </th>
+            <th>
+              Actions
+            </th>
           </tr>
-        @end
-      </tbody>
-    </table>
-  </div>
-</main>
+        </thead>
+        <tbody>
+          @each((deck, index) in decks)
+            <tr>
+              <td>
+                {{ deck.name }}
+              </td>
+              <td>
+                {{ deck.description }}
+              </td>
+              <td>
+                <strong>{{ deck.$extras.cards_count }}</strong>cartes
+              </td>
+              <td class="actions">
+                <a href="{{ route('deck.edit', {id: deck.id}) }}">
+                  <img height="20em" src="../../assets/edit.png" alt="edit" />
+                </a>
+                <form
+                  action="{{ route('deck.destroy', { id: deck.id }) }}?_method=DELETE"
+                  method="POST"
+                  style="display: inline"
+                >
+                  {{ csrfField() }}
+<button type="submit" style="background: none; border: none; padding: 0;
+cursor: pointer;">
+                    <img height="20em" src="../../assets/delete.png" alt="delete" />
+                  </button>
+                </form>
+                <a href="{{ route('deck.show', {id: deck.id}) }}">
+                  <img height="20em" src="../../assets/detail.png" alt="detail" />
+                </a>
+              </td>
+            </tr>
+          @end
+        </tbody>
+      </table>
+    </div>
+  </main>
 @endcomponent
