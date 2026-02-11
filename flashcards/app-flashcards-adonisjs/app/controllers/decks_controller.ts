@@ -20,39 +20,30 @@ export default class DecksController {
     return view.render('pages/decks/create', { title: "Ajout d'un deck" })
   }
 
-  async store({ request, session, response }: HttpContext) {
-    const { name, description, userId } = await request.validateUsing(decksValidator)
+  async store({ request, session, auth, response }: HttpContext) {
+    const user = auth.getUserOrFail()
+    const payload = await request.validateUsing(decksValidator)
 
     const deck = await Deck.create({
-      name,
-      description,
-      userId,
+      ...payload,
+      userId: user.id, // Ensure userId is provided to the model
     })
 
     session.flash('success', 'Deck créé avec succès')
-    return response.redirect().toRoute('decks.show', { id: deck.id })
+    return response.redirect().toRoute('deck.show', { id: deck.id })
   }
   async edit({ params, view }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
-    return view.render('pages/decks/edit.edge', { title: 'Modifier un deck', deck })
+    return view.render('pages/decks/edit', { deck })
   }
   async update({ params, request, session, response }: HttpContext) {
-    const { name, description, userId } = await request.validateUsing(decksValidator)
-
+    const payload = await request.validateUsing(decksValidator)
     const deck = await Deck.findOrFail(params.id)
 
-    deck.merge({
-      name,
-      description,
-      userId,
-    })
-    const deckUpdated = await deck.save()
+    deck.merge(payload)
+    await deck.save()
 
-    session.flash(
-      'success',
-      `L'enseignant ${deckUpdated.name} a été
-mis à jour avec succès !`
-    )
+    session.flash('success', `Le deck ${deck.name} a été mis à jour !`)
     return response.redirect().toRoute('home')
   }
   async destroy({ params, response, session }: HttpContext) {
@@ -62,7 +53,7 @@ mis à jour avec succès !`
 
     session.flash(
       'success',
-      `L'enseignant ${deck.name} a été supprimé avec
+      `Le deck ${deck.name} a été supprimé avec
 succès !`
     )
     return response.redirect().toRoute('home')

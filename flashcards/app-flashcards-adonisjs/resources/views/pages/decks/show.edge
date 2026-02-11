@@ -1,30 +1,32 @@
 @component('components/layout', { title: title })
-  <h3>
-    {{ title }}
-  </h3>
-  <form action="{{ route('deck.store') }}" method="POST">
-    {{ csrfField() }}
-    {{-- Bloc Prénom --}}
-    <div class="field">
-      <label for="name">Nom</label>
-      <input type="text" id="name" name="name" value="{{ old('name') || '' }}" />
-      @inputError('name')
-        <p class="text-danger">
-          {{ $messages.join(', ') }}
-        </p>
-      @end
-    </div>
-    {{-- Bloc Description --}}
-    <div class="field">
-      <label for="description">Description</label>
-      <input type="text" id="description" name="description" value="{{ old('description')
+  <main style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+    <h3>
+      {{ title }}
+    </h3>
+    <form action="{{ route('deck.store') }}" method="POST">
+      {{ csrfField() }}
+      {{-- Bloc Prénom --}}
+      <div class="field">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" value="{{ old('name') || '' }}" />
+        @inputError('name')
+          <p class="text-danger">
+            {{ $messages.join(', ') }}
+          </p>
+        @end
+      </div>
+      {{-- Bloc Description --}}
+      <div class="field">
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description" value="{{ old('description')
 || '' }}" />
-      @inputError('description')
-        <p class="text-danger">
-          {{ $messages.join(', ') }}
-        </p>
-      @end
-    </div>
-    <button type="submit">Enregistrer</button>
-  </form>
+        @inputError('description')
+          <p class="text-danger">
+            {{ $messages.join(', ') }}
+          </p>
+        @end
+      </div>
+      <button type="submit">Enregistrer</button>
+    </form>
+  </main>
 @end
