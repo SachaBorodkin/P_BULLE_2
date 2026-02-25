@@ -5,13 +5,11 @@ import Deck from '#models/deck'
 export default class DecksController {
   async index({ view }: HttpContext) {
     const decks = await Deck.query().withCount('cards').orderBy('updated_at', 'desc')
-
     return view.render('pages/home', { decks })
   }
 
   async show({ params, view }: HttpContext) {
     const deck = await Deck.query().where('id', params.id).preload('cards').firstOrFail()
-
     return view.render('pages/decks/show', { deck })
   }
 
@@ -21,19 +19,11 @@ export default class DecksController {
     })
   }
 
-  async store({ request, session, auth, response }: HttpContext) {
-    await auth.authenticate()
-    const user = auth.user!
-
-    const payload = await request.validateUsing(decksValidator)
-
-    const deck = await Deck.create({
-      ...payload,
-      userId: user.id,
-    })
-
-    session.flash('success', 'Deck créé avec succès')
-    return response.redirect().toRoute('deck.show', { id: deck.id })
+  async store({ request, response, session }: HttpContext) {
+    const data = await request.validateUsing(decksValidator)
+    await Deck.create({ ...data, userId: 1 })
+    session.flash('success', 'Deck created!')
+    return response.redirect().toRoute('home')
   }
 
   async edit({ params, view }: HttpContext) {
@@ -49,14 +39,17 @@ export default class DecksController {
     await deck.save()
 
     session.flash('success', `Le deck ${deck.name} a été mis à jour !`)
-    return response.redirect().toRoute('show')
+    return response.redirect().toRoute('decks.show', { id: deck.id }) // ← was 'show'
   }
 
   async destroy({ params, response, session }: HttpContext) {
     const deck = await Deck.findOrFail(params.id)
+    const deckName = deck.name
+
+    await deck.related('cards').query().delete() // delete associated cards first
     await deck.delete()
 
-    session.flash('success', `Le deck ${deck.name} a été supprimé !`)
-    return response.redirect().toRoute('show')
+    session.flash('success', `Le deck "${deckName}" a été supprimé !`)
+    return response.redirect().toRoute('home')
   }
 }

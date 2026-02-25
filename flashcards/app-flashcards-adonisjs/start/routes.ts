@@ -3,15 +3,16 @@ import DecksController from '#controllers/decks_controller'
 import CardsController from '#controllers/cards_controller'
 
 router.get('/', [DecksController, 'index']).as('home')
-router.get('/deck/:id', [DecksController, 'show']).as('decks.show')
-router.get('/decks/create', [DecksController, 'create']).as('decks.create')
-router.post('/decks', [DecksController, 'store']).as('decks.store')
-router.delete('/decks/:id/', [DecksController, 'destroy']).as('decks.destroy')
+router.get('/decks/create', [DecksController, 'create']).as('decks.create') // ← move up
 router.get('/decks/:id/edit', [DecksController, 'edit']).as('decks.edit')
-router.put('/decks/:id', [DecksController, 'update']).as('decks.update')
+router.get('/deck/:id', [DecksController, 'show']).as('decks.show') // ← also fix typo
+router.post('/decks', [DecksController, 'store']).as('decks.store')
+//router.delete('/decks/:id', [DecksController, 'destroy']).as('decks.destroy')
+router.post('/decks/:id/update', [DecksController, 'update']).as('decks.update')
+
+router.post('/decks/:id', [DecksController, 'destroy']).as('decks.destroy')
 
 router.get('/decks/:deckId/cards-add', [CardsController, 'create']).as('cards.create')
-
 router.post('/cards', [CardsController, 'store']).as('cards.store')
 router.delete('/cards/:id', [CardsController, 'destroy']).as('cards.destroy')
 router.get('/cards/:id/edit', [CardsController, 'edit']).as('cards.edit')

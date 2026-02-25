@@ -37,12 +37,14 @@
               </td>
               <td class="actions">
 
-                <a href="{{ route('decks.edit', { id: deck.id }) }}">Edit</a>
+                <a href="{{ route('decks.edit', { id: deck.id }) }}">Editer</a>
 
                 <form action="{{ route('decks.destroy', { id: deck.id }) }}" method="POST">
                   {{ csrfField() }}
-    <input type="hidden" name="_method" value="DELETE" />
-                  <button>Delete</button>
+                  <!--<input type="hidden" name="_method" value="DELETE" />-->
+                  <button>                    <span class="material-symbols-outlined">
+                      delete
+</span>Supprimer</button>
                 </form>
 
               </td>
@@ -53,4 +55,8 @@
       </table>
     </div>
   </main>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete"
+  />
 @endcomponent

@@ -1,24 +1,45 @@
 @component('components/layout', { title: 'Edit Deck' })
-
   @slot('main')
     <main class="main-content">
       <div class="glass-card" style="max-width: 500px;">
-        <h3>
-          Edit: {{ deck.name }}
-        </h3>
+        <div class="card-header">
+          <h3>
+            Editer: {{ deck.name }}
+          </h3>
+        </div>
 
-        <form action="{{ route('decks.update', { id: deck.id }) }}" method="POST">
-          {{ csrfField() }}
-  <input type="hidden" name="_method" value="PUT" />
+        <div class="card-body">
+          <form action="{{ route('decks.update', { id: deck.id }) }}" method="POST" class="deck-form">
+            {{ csrfField() }}
+            <div class="field">
+              <label>Nom</label>
+              <input type="text" name="name" value="{{ old('name', deck.name) }}" placeholder="Deck Name" />
+              @inputError('name')
+                <p class="text-danger">
+                  {{ $messages.join(', ') }}
+                </p>
+              @end
+            </div>
 
-          <input name="name" value="{{ deck.name }}" />
-          <input name="description" value="{{ deck.description }}" />
+            <div class="field">
+              <label>Description</label>
+              <input
+                type="text"
+                name="description"
+                value="{{ old('description', deck.description) }}"
+                placeholder="Deck Description"
+              />
+              @inputError('description')
+                <p class="text-danger">
+                  {{ $messages.join(', ') }}
+                </p>
+              @end
+            </div>
 
-          <button>Update</button>
-        </form>
-
+            <button type="submit" class="btn-primary">Mettre à jour le deck</button>
+          </form>
+        </div>
       </div>
     </main>
   @endslot
-  
 @end

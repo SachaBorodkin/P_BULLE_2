@@ -1,0 +1,50 @@
+@component('components/layout', { title: 'Edit Card' })
+  @slot('main')
+    <main class="main-content">
+      <div class="glass-card" style="max-width: 500px;">
+        <div class="card-header">
+          <h3>
+            Edit Card
+          </h3>
+        </div>
+
+        <div class="card-body">
+          <form
+            action="{{ route('cards.update', { id: card.id }) }}?_method=PUT"
+            method="POST"
+            class="deck-form"
+          >
+            {{ csrfField() }}
+            {{-- deckId hidden --}}
+            <input type="hidden" name="deckId" value="{{ deck.id }}" />
+
+            <div class="field">
+              <label for="question">Question</label>
+              <input type="text" id="question" name="question" value="{{ card.question }}" required />
+              @inputError('question')
+                <p class="text-danger">
+                  {{ $messages.join(', ') }}
+                </p>
+              @end
+            </div>
+
+            <div class="field">
+              <label for="answer">Answer</label>
+              <input type="text" id="answer" name="answer" value="{{ card.answer }}" required />
+              @inputError('answer')
+                <p class="text-danger">
+                  {{ $messages.join(', ') }}
+                </p>
+              @end
+            </div>
+
+            <div class="actions-vertical">
+              <button type="submit" class="btn-primary">Save Changes</button>
+              <a href="{{ route('decks.show', { id: deck.id }) }}" class="btn-secondary">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  @endslot
+@end
