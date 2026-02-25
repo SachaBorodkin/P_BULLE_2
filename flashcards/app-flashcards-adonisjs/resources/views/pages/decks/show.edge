@@ -31,7 +31,7 @@
                     onclick="event.stopPropagation()"
                   >
                     {{ csrfField() }}
-                    <button type="submit" class="btn-action btn-delete">Delete</button>
+                    <button type="submit" class="btn-action btn-delete">Supprimer</button>
                   </form>
                 </div>
               </div>
@@ -39,7 +39,7 @@
           </div>
         @else
           <p style="color: rgba(255,255,255,0.4); text-align:center; padding: 40px 0;">
-            No cards yet. Add one below!
+            Pas des cartes pour le moment!
           </p>
         @end
         
@@ -47,7 +47,7 @@
           <h3
             style="color: var(--primary-gold); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px;"
           >
-            Add Card
+            Ajouter une carte
           </h3>
           <form
             action="{{ route('cards.store') }}"
@@ -57,8 +57,8 @@
             {{ csrfField() }}
             <input type="hidden" name="deckId" value="{{ deck.id }}" />
             <input type="text" name="question" placeholder="Question" required style="flex:1; min-width: 200px;" />
-            <input type="text" name="answer" placeholder="Answer" required style="flex:1; min-width: 200px;" />
-            <button type="submit" class="btn btn-login">Add</button>
+            <input type="text" name="answer" placeholder="Réponse" required style="flex:1; min-width: 200px;" />
+            <button type="submit" class="btn btn-login">Ajouter</button>
           </form>
         </div>
       </div>
@@ -291,10 +291,6 @@
 
       document.addEventListener("keydown", e => {
         if (e.key === "Escape") closeCard();
-        if (e.key === " ") {
-          e.preventDefault();
-          flipCard();
-        }
       });
     </script>
   @endslot
