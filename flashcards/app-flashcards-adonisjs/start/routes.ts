@@ -2,7 +2,7 @@ import router from '@adonisjs/core/services/router'
 import DecksController from '#controllers/decks_controller'
 import CardsController from '#controllers/cards_controller'
 
-router.get('/', [DecksController, 'index']).as('home')
+router.get('/home', [DecksController, 'index']).as('home')
 router.get('/decks/create', [DecksController, 'create']).as('decks.create') // ← move up
 router.get('/decks/:id/edit', [DecksController, 'edit']).as('decks.edit')
 router.get('/deck/:id', [DecksController, 'show']).as('decks.show') // ← also fix typo
