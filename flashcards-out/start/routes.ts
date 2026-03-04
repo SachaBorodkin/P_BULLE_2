@@ -1,17 +1,21 @@
 import router from '@adonisjs/core/services/router'
-import { middleware } from '#start/kernel'
 import DecksController from '#controllers/decks_controller'
 import CardsController from '#controllers/cards_controller'
 import AuthController from '#controllers/auth_controller'
+const { middleware } = await import('@adonisjs/core/services/server')
 
 // Auth routes (guest only)
-router.get('/login', [AuthController, 'showLogin']).as('auth.login.show').use(middleware.guest())
+router
+  .get('/login', [AuthController, 'showLogin'])
+  .as('auth.login.show')
+  .use(middleware.guest())
 router.post('/login', [AuthController, 'login']).as('auth.login').use(middleware.guest())
 router.post('/logout', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
 
-// Protected routes
+// Public home (shows only logged-in user's decks, or redirects to login)
 router.get('/', [DecksController, 'index']).as('home').use(middleware.auth())
 
+// Protected deck routes
 router
   .group(() => {
     router.get('/decks/create', [DecksController, 'create']).as('decks.create')

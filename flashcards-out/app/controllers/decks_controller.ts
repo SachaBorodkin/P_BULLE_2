@@ -4,8 +4,9 @@ import Deck from '#models/deck'
 
 export default class DecksController {
   async index({ view, auth }: HttpContext) {
+    const user = auth.user!
     const decks = await Deck.query()
-      .where('user_id', auth.user!.id)
+      .where('user_id', user.id)
       .withCount('cards')
       .orderBy('updated_at', 'desc')
     return view.render('pages/home', { decks })
@@ -27,7 +28,9 @@ export default class DecksController {
   }
 
   async create({ view }: HttpContext) {
-    return view.render('pages/decks/create', { title: "Ajout d'un deck" })
+    return view.render('pages/decks/create', {
+      title: "Ajout d'un deck",
+    })
   }
 
   async store({ request, response, session, auth }: HttpContext) {
@@ -38,10 +41,13 @@ export default class DecksController {
   }
 
   async edit({ params, view, auth, response, session }: HttpContext) {
-    const deck = await Deck.query().where('id', params.id).where('user_id', auth.user!.id).first()
+    const deck = await Deck.query()
+      .where('id', params.id)
+      .where('user_id', auth.user!.id)
+      .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé ou deck introuvable.')
+      session.flash('error', "Accès refusé ou deck introuvable.")
       return response.redirect().toRoute('home')
     }
 
@@ -50,10 +56,13 @@ export default class DecksController {
 
   async update({ params, request, session, response, auth }: HttpContext) {
     const payload = await request.validateUsing(decksValidator)
-    const deck = await Deck.query().where('id', params.id).where('user_id', auth.user!.id).first()
+    const deck = await Deck.query()
+      .where('id', params.id)
+      .where('user_id', auth.user!.id)
+      .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé ou deck introuvable.')
+      session.flash('error', "Accès refusé ou deck introuvable.")
       return response.redirect().toRoute('home')
     }
 
@@ -65,10 +74,13 @@ export default class DecksController {
   }
 
   async destroy({ params, response, session, auth }: HttpContext) {
-    const deck = await Deck.query().where('id', params.id).where('user_id', auth.user!.id).first()
+    const deck = await Deck.query()
+      .where('id', params.id)
+      .where('user_id', auth.user!.id)
+      .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé ou deck introuvable.')
+      session.flash('error', "Accès refusé ou deck introuvable.")
       return response.redirect().toRoute('home')
     }
 

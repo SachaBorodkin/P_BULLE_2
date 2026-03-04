@@ -2,11 +2,20 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { loginUserValidator } from '#validators/auth'
 import User from '#models/user'
 
+/**
+ * Controller pour l'authentification
+ */
 export default class AuthController {
+  /**
+   * Afficher la page de connexion
+   */
   async showLogin({ view }: HttpContext) {
     return view.render('pages/auth/login')
   }
 
+  /**
+   * Gérer la connexion d'un utilisateur
+   */
   async login({ request, auth, session, response }: HttpContext) {
     const { username, password } = await request.validateUsing(loginUserValidator)
     const user = await User.verifyCredentials(username, password)

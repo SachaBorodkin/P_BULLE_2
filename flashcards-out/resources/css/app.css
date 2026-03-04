@@ -198,6 +198,16 @@ input:focus {
   color: white;
 }
 
+.auth-user {
+  color: rgba(255, 215, 0, 0.8);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
 .text-danger {
   color: #ff6b6b;
   font-size: 0.75rem;
@@ -367,13 +377,4 @@ form {
   color: white;
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 255, 255, 0.2);
-}
-.auth-user {
-  color: rgba(255, 215, 0, 0.8);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 6px 10px;
-  background: rgba(255, 215, 0, 0.08);
-  border-radius: 6px;
-  border: 1px solid rgba(255, 215, 0, 0.2);
 }

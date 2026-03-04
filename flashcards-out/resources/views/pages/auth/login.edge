@@ -1,0 +1,34 @@
+@component('components/layout', { title: 'Connexion' })
+  <main>
+    <div class="login-container">
+      <h1>
+        Se connecter
+      </h1>
+
+      <form action="{{ route('auth.login') }}" method="POST">
+        {{ csrfField() }}
+        <div class="form-group">
+          <label for="username">Nom d'utilisateur</label>
+          <input type="text" id="username" name="username" value="{{ old('username') || '' }}" required />
+          @inputError('username')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" required />
+          @inputError('password')
+            <p class="text-danger">
+              {{ $messages.join(', ') }}
+            </p>
+          @end
+        </div>
+
+        <button type="submit" class="btn btn-login">Se connecter</button>
+      </form>
+    </div>
+  </main>
+@end

@@ -11,7 +11,7 @@ export default class CardsController {
       .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé ou deck introuvable.')
+      session.flash('error', "Accès refusé ou deck introuvable.")
       return response.redirect().toRoute('home')
     }
 
@@ -27,7 +27,7 @@ export default class CardsController {
       .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé ou deck introuvable.')
+      session.flash('error', "Accès refusé ou deck introuvable.")
       return response.redirect().toRoute('home')
     }
 
@@ -38,10 +38,13 @@ export default class CardsController {
 
   async destroy({ params, response, session, auth }: HttpContext) {
     const card = await Card.findOrFail(params.id)
-    const deck = await Deck.query().where('id', card.deckId).where('user_id', auth.user!.id).first()
+    const deck = await Deck.query()
+      .where('id', card.deckId)
+      .where('user_id', auth.user!.id)
+      .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé.')
+      session.flash('error', "Accès refusé.")
       return response.redirect().toRoute('home')
     }
 
@@ -53,10 +56,13 @@ export default class CardsController {
 
   async edit({ params, view, auth, response, session }: HttpContext) {
     const card = await Card.findOrFail(params.id)
-    const deck = await Deck.query().where('id', card.deckId).where('user_id', auth.user!.id).first()
+    const deck = await Deck.query()
+      .where('id', card.deckId)
+      .where('user_id', auth.user!.id)
+      .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé.')
+      session.flash('error', "Accès refusé.")
       return response.redirect().toRoute('home')
     }
 
@@ -65,10 +71,13 @@ export default class CardsController {
 
   async update({ params, request, response, session, auth }: HttpContext) {
     const card = await Card.findOrFail(params.id)
-    const deck = await Deck.query().where('id', card.deckId).where('user_id', auth.user!.id).first()
+    const deck = await Deck.query()
+      .where('id', card.deckId)
+      .where('user_id', auth.user!.id)
+      .first()
 
     if (!deck) {
-      session.flash('error', 'Accès refusé.')
+      session.flash('error', "Accès refusé.")
       return response.redirect().toRoute('home')
     }
 
